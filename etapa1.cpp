@@ -13,12 +13,15 @@ private:
     Cor cores[100];
     double alturas[100];
 public:
-    Paleta aa(){
-        3, //quantidade de cores
-        {{255, 0, 0}, {0, 255, 0}, {0, 0, 255}}, //cores
-        {0, 10, 20} //valores associados as cores
-    };
-    void get_paleta (int qtd, Cor a[], float valores[]){
+    Paleta (){
+        quantidade = 2;
+        for (int i = 0; i < quantidade; i++)
+        {
+            alturas[i] = 0;
+            cores[i] = {0, 0, 0};
+        }
+    }    
+    void get_paleta (int qtd, Cor a[], double valores[]){
         quantidade = qtd;
         for (int i = 0; i < qtd; i++)
         {
@@ -30,20 +33,20 @@ public:
 
 int main(){
 
+int quanti = 3;
+
 Cor cores[] = {
-    {{ 255, 0, 0 },
+    { 255, 0, 0 },
      { 0, 255, 0 },
-     { 0, 0, 255 }}
+     { 0, 0, 255 }
 };
 
 double alturas[] = {
-    10, 100
+    10, 100, 200
 };
 
-Paleta paleta = {
-    3,
-    cores,
-    alturas
-};
+Paleta paletinha;
     
+paletinha.get_paleta (quanti, cores, alturas);
+
 }
