@@ -1,5 +1,8 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
+
+#define MAX 100
 
 struct Cor
 {
@@ -10,8 +13,8 @@ class Paleta
 {
 private:
     int quantidade;
-    Cor cores[100];
-    double alturas[100];
+    Cor cores[MAX];
+    double alturas[MAX];
 public:
     Paleta (){
         quantidade = 2;
@@ -29,24 +32,70 @@ public:
             cores[i] = a[i];
         }        
     }
+    int ler_arquivo(const char* nome_arquivo, Paleta* paleta){
+        ifstream arquivo(nome_arquivo);
+
+        if (!arquivo.is_open())
+        {
+            cout << "Erro ao abrir o arquivo!\n";
+            return 0;
+        }
+
+        int qtd;
+        arquivo >> qtd;
+
+        Cor cores[MAX];
+        double valores[MAX];
+
+        for (int i = 0; i < qtd; i++)
+        {
+            double valor;
+            int R, G, B;
+
+            if (!(arquivo >> valor >> R >> G >> B))
+            {
+                cout << "Erro na leitura da linha " << i+2 << endl;
+                //i + 2 = começa do 0, a primeira linha somente a qtd de cores
+                return 0;
+            }
+            
+            valores[i] = valor;
+            cores[i] = { R, G, B };
+        }
+        
+        paleta -> get_paleta(qtd, cores, valores);
+
+        arquivo.close();
+        return 1;
+    }
 };
 
 int main(){
 
-int quanti = 3;
+    int qtd = 3;
 
-Cor cores[] = {
-    { 255, 0, 0 },
-     { 0, 255, 0 },
-     { 0, 0, 255 }
-};
+    Cor cores[] = {
+        { 255, 0, 0 },
+        { 0, 255, 0 },
+        { 0, 0, 255 }
+    };
 
-double alturas[] = {
-    10, 100, 200
-};
+    double alturas[] = {
+        10, 100, 200
+    };
 
-Paleta paletinha;
-    
-paletinha.get_paleta (quanti, cores, alturas);
+    Paleta minhaPaleta;
+    Paleta* palet = &minhaPaleta;
+    /*if (ler_arquivo("colors.cor", &minhaPaleta))
+    {
+        cout << "Arquivo lido com sucesso!\n";
+    }
+    else{
+        cout << "Erro ao ler o arquivo.\n";
+    }*/
 
+    if (minhaPaleta.ler_arquivo("colors.cor", palet) == 1) cout << "CORRETO!\n";
+    else cout << "INCORRETO\n";
+
+    return 0;
 }
