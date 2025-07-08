@@ -1,9 +1,7 @@
 #include <iostream>
+#include "../Etapa_1/paleta.h"
+using namespace std;
 
-struct Cor
-{
-    int R, G, B;
-};
 
 class Imagem
 {
