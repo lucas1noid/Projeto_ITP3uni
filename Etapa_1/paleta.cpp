@@ -1,22 +1,12 @@
 #include <iostream>
 #include <fstream>
+#include "paleta.h"
 using namespace std;
 
 #define MAX 100
 
-struct Cor
-{
-    int R, G, B;
-};
 
-class Paleta
-{
-private:
-    int quantidade;
-    Cor cores[MAX];
-    double alturas[MAX];
-public:
-    Paleta (){
+    Paleta::Paleta (){
         quantidade = 2;
         for (int i = 0; i < quantidade; i++)
         {
@@ -24,7 +14,7 @@ public:
             cores[i] = {0, 0, 0};
         }
     }    
-    void get_paleta (int qtd, Cor a[], double valores[]){
+    void Paleta::get_paleta (int qtd, Cor a[], double valores[]){
         quantidade = qtd;
         for (int i = 0; i < qtd; i++)
         {
@@ -32,7 +22,7 @@ public:
             cores[i] = a[i];
         }        
     }
-    int ler_arquivo(const char* nome_arquivo, Paleta* paleta){
+    int Paleta::ler_arquivo(const char* nome_arquivo, Paleta* paleta){
         ifstream arquivo(nome_arquivo);
 
         if (!arquivo.is_open())
