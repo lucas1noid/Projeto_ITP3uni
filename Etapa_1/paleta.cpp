@@ -54,8 +54,7 @@ using namespace std;
 
         arquivo.close();
         return 1;
-    }
-};
+    };
 
 int main(){
 
