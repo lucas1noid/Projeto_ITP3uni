@@ -21,9 +21,9 @@ void Imagem::save_Imagem(const char* nomeArquivo, int largura, int altura, Cor**
     // Escrever pixels
     for (int i = 0; i < altura; ++i) {
         for (int j = 0; j < largura; ++j) {
-            arquivo << matrizPixels[i][j].r << " "
-                    << matrizPixels[i][j].g << " "
-                    << matrizPixels[i][j].b << " ";
+            arquivo << matrizPixels[i][j].R << " "
+                    << matrizPixels[i][j].G << " "
+                    << matrizPixels[i][j].B << " ";
         }
         arquivo << "\n";
     }
