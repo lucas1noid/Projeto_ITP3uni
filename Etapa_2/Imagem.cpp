@@ -1,32 +1,37 @@
 #include <iostream>
-#include "../Etapa_1/paleta.h"
+#include "paleta.h"
+#include "Imagem.h"
+#include <fstream>
+
 using namespace std;
 
+void Imagem::save_Imagem(const char* nomeArquivo, int largura, int altura, Cor** matrizPixels) {
+    ofstream arquivo(nomeArquivo);
 
-class Imagem
-{
-private:
-    int largura;
-    int altura;
-    Cor pixel[1000][1000];
-
-public:
-    Imagem(){
-    largura = 1;
-    altura = 1;
-    for (int i = 0; i < largura; i++)
-    {
-        for (int j = 0; j < altura; j++)
-        {
-            pixel[i][j] = {0, 0, 0};
-        }
+    if (!arquivo) {
+        cout << "Erro ao abrir o arquivo para escrita.\n";
+        return;
     }
-    cout << "Construtor usado! Objeto criado." << endl;
-    };
-    ~Imagem(){
-    cout << "Destrutor usado! Objeto destruido." << endl;
-    };
-    Imagem get_Imagem(int Clargura, int Caltura, Cor Cpixel[1000][1000]){
+
+    // Cabeçalho PPM
+    arquivo << "P3" << "\n";
+    arquivo << largura << " " << altura << "\n";
+    arquivo << "255" << "\n";
+
+    // Escrever pixels
+    for (int i = 0; i < altura; ++i) {
+        for (int j = 0; j < largura; ++j) {
+            arquivo << matrizPixels[i][j].r << " "
+                    << matrizPixels[i][j].g << " "
+                    << matrizPixels[i][j].b << " ";
+        }
+        arquivo << "\n";
+    }
+
+    arquivo.close();
+    std::cout << "Arquivo " << nomeArquivo << " salvo com sucesso.\n";
+}
+Imagem::get_Imagem(int Clargura, int Caltura, Cor Cpixel[1000][1000]){
         largura = Clargura;
         altura = Caltura;
         for (int i = 0; i < largura; i++)
@@ -37,14 +42,4 @@ public:
         }
         
     }
-    };
-    Imagem cout_Imagem(Imagem img){
-        cout << largura << endl;
-        cout << altura << endl;
-    };
 };
-
-int main () {
-
-return 0;
-}
