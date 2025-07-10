@@ -14,7 +14,7 @@ public:
     Imagem get_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
     Imagem pixel_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
     Imagem change_pixel(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
-    Imagem save_Image(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
+    Imagem save_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
 };
 
 #endif
