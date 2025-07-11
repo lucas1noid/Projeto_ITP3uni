@@ -3,6 +3,8 @@
 #include "paleta.h"
 using namespace std;
 
+//
+
     Paleta::Paleta (){
         quantidade = 2;
         for (int i = 0; i < quantidade; i++)
