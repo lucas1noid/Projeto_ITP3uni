@@ -1,5 +1,5 @@
 #include <iostream>
-#include "paleta.h"
+#include "../Etapa_1/paleta.h"
 #include "Imagem.h"
 #include <fstream>
 using namespace std;
