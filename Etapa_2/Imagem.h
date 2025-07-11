@@ -11,10 +11,9 @@ private:
     Cor pixel[MAX][MAX];
 
 public:
-    Imagem get_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
-    Imagem pixel_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
-    Imagem change_pixel(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
-    Imagem save_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]);
+    Cor get_pixel(int linha, int coluna);
+    void change_pixel(int linha, int coluna, Cor cor);
+    void save_Image(const char* nomeArquivo, int largura, int altura, Cor** matrizPixels);
 };
 
 #endif
