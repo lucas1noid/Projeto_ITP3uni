@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../Etapa_1/paleta.h"
+#include "paleta.h"
 #include "Imagem.h"
 #include <fstream>
 using namespace std;
@@ -31,23 +31,12 @@ using namespace std;
     arquivo.close();
     std::cout << "Arquivo " << nomeArquivo << " salvo com sucesso.\n";
 }
-     void Imagem::get_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]){
-        largura = Clargura;
-        altura = Caltura;
-        for (int i = 0; i < largura; i++)
-    {
-        for (int j = 0; j < altura; j++)
-        {
-            pixel[i][j].R =;
-        }
-        
+
+    Cor Imagem::get_pixel(int linha, int coluna){
+       return pixel[linha][coluna];
     };
-}
-    void Imagem::pixel_Imagem(int Clargura, int Caltura, Cor Cpixel[MAX][MAX]){
-       cout << Cpixel[Clargura][Caltura].R << " ";
-       cout << Cpixel[Clargura][Caltura].G << " ";
-       cout << Cpixel[Clargura][Caltura].B << endl;
+    void Imagem::change_pixel(int linha, int coluna, Cor cor){
+       pixel[linha][coluna] = cor;
     };
-    Cor Imagem::change_pixel (int Clargura, int Caltura, double alturas[MAX]){
-        return 0;
-    };
+
+   
