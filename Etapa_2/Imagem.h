@@ -1,6 +1,6 @@
 #ifndef _Imagem
 #define _Imagem
-#include "../Etapa_1/paleta.h"
+#include "paleta.h"
 
 
 class Imagem
@@ -8,12 +8,13 @@ class Imagem
 private:
     int largura;
     int altura;
-    Cor pixel[MAX][MAX];
+    Cor pixel[255][255];
 
 public:
+    Imagem(int l, int a);
     Cor get_pixel(int linha, int coluna);
     void change_pixel(int linha, int coluna, Cor cor);
-    void save_Image(const char* nomeArquivo, int largura, int altura, Cor** matrizPixels);
+    void save_Image(std::string nomeArquivo);
 };
 
 #endif
