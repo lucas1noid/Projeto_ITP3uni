@@ -4,7 +4,20 @@
 #include <fstream>
 using namespace std;
 
-    void Imagem::save_Image(const char* nomeArquivo, int largura, int altura, Cor** matrizPixels) {
+
+    Imagem::Imagem(int l, int a){
+        largura = l;
+        altura = a;
+        for (int i = 0; i < l; i++)
+        {
+            for (int j = 0; j < a; j++)
+            {
+                pixel[i][j] = {0, 0, 0};
+            }
+        }       
+    }
+
+    void Imagem::save_Image(string nomeArquivo) {
     ofstream arquivo(nomeArquivo);
 
     if (!arquivo) {
@@ -20,10 +33,9 @@ using namespace std;
     // Escrever pixels
     for (int i = 0; i < altura; ++i) {
         for (int j = 0; j < largura; ++j) {
-            arquivo << matrizPixels[i][j].R << " "
-                    << matrizPixels[i][j].G << " "
-                    << matrizPixels[i][j].B
-                     << " ";
+            arquivo << pixel[i][j].R << " "
+                    << pixel[i][j].G << " "
+                    << pixel[i][j].B << " ";
         }
         arquivo << "\n";
     }
@@ -38,5 +50,3 @@ using namespace std;
     void Imagem::change_pixel(int linha, int coluna, Cor cor){
        pixel[linha][coluna] = cor;
     };
-
-   
