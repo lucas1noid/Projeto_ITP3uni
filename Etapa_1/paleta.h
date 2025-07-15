@@ -1,7 +1,7 @@
 #ifndef _Paleta
 #define _Paleta
 
-#define MAX 100
+#define MAX 1000
 
 struct Cor
 {
