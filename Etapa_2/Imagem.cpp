@@ -4,17 +4,25 @@
 #include <fstream>
 using namespace std;
 
+    Imagem::Imagem(int l, int a) : largura(l), altura(a) {
+        pixel = new Cor*[altura];
 
-    Imagem::Imagem(int l, int a){
-        largura = l;
-        altura = a;
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < altura; i++)
         {
-            for (int j = 0; j < a; j++)
+            pixel[i] = new Cor[largura];
+            for (int j = 0; j < largura; j++)
             {
                 pixel[i][j] = {0, 0, 0};
-            }
-        }       
+            }           
+        }        
+    }
+
+    Imagem::~Imagem(){
+        for (int i = 0; i < altura; i++)
+        {
+            delete[] pixel[i];
+        }
+        delete[] pixel;
     }
 
     void Imagem::save_Image(string nomeArquivo) {
