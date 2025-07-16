@@ -1,7 +1,7 @@
 #ifndef _Paleta
 #define _Paleta
 
-#define MAX 1000
+#define MAX 100
 
 struct Cor
 {
@@ -18,7 +18,7 @@ public:
     Paleta();
     void get_paleta(int qtd, Cor a[], double valores[]);
     int ler_arquivo(const char* nome_arquivo, Paleta *paleta);
-    int get_color_by_height();
+    Cor consultar_cor(double altura);
 };
 
 #endif
