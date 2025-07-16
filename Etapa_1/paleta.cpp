@@ -7,12 +7,12 @@ using namespace std;
 
     Paleta::Paleta (){
         quantidade = 2;
-        for (int i = 0; i < quantidade; i++)
-        {
-            alturas[i] = 0;
-            cores[i] = {0, 0, 0};
-        }
+        cores[0]={255, 0, 0};
+        cores[1]={0,255,0};
+        alturas[0]=0;
+        alturas[1]=10;
     }    
+    //transforma os dados privados da paleta
     void Paleta::get_paleta (int qtd, Cor a[], double valores[]){
         quantidade = qtd;
         for (int i = 0; i < qtd; i++)
@@ -57,24 +57,14 @@ using namespace std;
         arquivo.close();
         return 1;
     };
-
-int main(){
-
-    int qtd = 3;
-
-    Cor cores[] = {
-        { 255, 0, 0 },
-        { 0, 255, 0 },
-        { 0, 0, 255 }
+    Cor Paleta::consultar_cor(double altura){
+        for (int i = 0; i < quantidade - 1; i++)
+        {
+            if (alturas[i]<= altura && altura < alturas[i + 1])
+            {
+                return cores[i];
+            }       
+        }
+        cout << "valor à ser consultado invalido\n"; 
+        return {0,0,0};  
     };
-
-    double alturas[] = { 10, 100, 200 };
-
-    Paleta minhaPaleta;
-    Paleta* palet = &minhaPaleta;
-
-    if (minhaPaleta.ler_arquivo("colors.cor", palet) == 1) cout << "CORRETO!\n";
-    else cout << "INCORRETO\n";
-
-    return 0;
-}
