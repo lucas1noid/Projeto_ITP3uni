@@ -1,20 +1,28 @@
 #include <iostream>
-#include "paleta.h"
+#include "../Etapa_1/paleta.h"
 #include "Imagem.h"
 #include <fstream>
 using namespace std;
 
+    Imagem::Imagem(int l, int a) : largura(l), altura(a) {
+        pixel = new Cor*[altura];
 
-    Imagem::Imagem(int l, int a){
-        largura = l;
-        altura = a;
-        for (int i = 0; i < l; i++)
+        for (int i = 0; i < altura; i++)
         {
-            for (int j = 0; j < a; j++)
+            pixel[i] = new Cor[largura];
+            for (int j = 0; j < largura; j++)
             {
                 pixel[i][j] = {0, 0, 0};
-            }
-        }       
+            }           
+        }        
+    }
+
+    Imagem::~Imagem(){
+        for (int i = 0; i < altura; i++)
+        {
+            delete[] pixel[i];
+        }
+        delete[] pixel;
     }
 
     void Imagem::save_Image(string nomeArquivo) {
@@ -53,20 +61,28 @@ using namespace std;
 
 
 
-int main(){
+int main() {
+    int largura = 300, altura = 150;
+    Imagem img(largura, altura);
 
-    Imagem img(100, 50);
+    int faixa = largura / 3;
 
-    for (int i = 0; i < 200; i++)
-    {
-        for (int j = 0; j < 100; j++)
-        {
+for (int i = 0; i < altura; i++) {
+    for (int j = 0; j < largura; j++) {
+        if (j < faixa) {
+            // Azul
+            img.change_pixel(i, j, {0, 0, 255});
+        } else if (j < 2 * faixa) {
+            // Branco
+            img.change_pixel(i, j, {255, 255, 255});
+        } else {
+            // Vermelho
             img.change_pixel(i, j, {255, 0, 0});
         }
     }
-    
-    
-    img.save_Image("teste.ppm");
- 
+}
+
+    img.save_Image("bandeira.ppm");
+
     return 0;
 }
