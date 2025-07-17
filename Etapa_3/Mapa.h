@@ -29,6 +29,7 @@ public:
     void imprimir() const;
 
     void paint(Paleta& paleta);
+    void sombreador(Imagem& image);
 };
 
 #endif
