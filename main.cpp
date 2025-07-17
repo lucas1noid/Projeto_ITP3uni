@@ -5,8 +5,21 @@
 #include "Etapa_3/Mapa.h"
 using namespace std;
 
-int main () {
+int main() {
+ 
 
+Paleta paleta;
+    Paleta* minhaPaleta = &paleta;
 
-  return 0;
+    paleta.ler_arquivo("paleta.cor", minhaPaleta);
+
+    Mapa mapa(8);
+    
+    mapa.gerar(1.5f);
+    mapa.salvar_em_arquivo("alturas");
+    mapa.imprimir();
+
+    mapa.paint(paleta);
+
+return 0;
 }
