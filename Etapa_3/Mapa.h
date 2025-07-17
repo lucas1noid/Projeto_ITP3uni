@@ -28,7 +28,7 @@ public:
     void ler_de_arquivo(const std::string& nome);
     void imprimir() const;
 
-    void paint(Paleta paleta);
+    void paint(Paleta& paleta);
 };
 
 #endif
