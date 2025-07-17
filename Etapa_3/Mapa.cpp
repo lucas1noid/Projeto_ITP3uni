@@ -1,5 +1,6 @@
 // MapaAltitudes.cpp
 #include "Mapa.h"
+#include "../Etapa_1/paleta.h"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -9,18 +10,18 @@
 //construtor
 Mapa::Mapa(int N) {
     tamanho = pow(2, N) + 1;
-    inicializarMatriz();
+    inicializar_matriz();
 }
 //destrutor
 Mapa::~Mapa() {
-    desalocarMatriz();
+    desalocar_matriz();
 }
 
-float Mapa::deslocamentoAleatorio(float offset) {
+float Mapa::deslocamento_aleatorio(float offset) {
     return ((float)rand() / RAND_MAX * 2 - 1) * offset;
 }
 
-void Mapa::inicializarMatriz() {
+void Mapa::inicializar_matriz() {
     matriz = new float*[tamanho];
     for (int i = 0; i < tamanho; ++i) {
         matriz[i] = new float[tamanho];
@@ -30,7 +31,7 @@ void Mapa::inicializarMatriz() {
     }
 }
 
-void Mapa::desalocarMatriz() {
+void Mapa::desalocar_matriz() {
     for (int i = 0; i < tamanho; ++i) {
         delete[] matriz[i];
     }
@@ -47,7 +48,7 @@ void Mapa::diamond(int passo, float offset) {
                 matriz[y + metade][x - metade] +
                 matriz[y + metade][x + metade]
             ) / 4.0f;
-            matriz[y][x] = media + deslocamentoAleatorio(offset);
+            matriz[y][x] = media + deslocamento_aleatorio(offset);
         }
     }
 }
@@ -76,17 +77,17 @@ void Mapa::square(int passo, float offset) {
                 cont++;
             }
 
-            matriz[y][x] = (soma / cont) + deslocamentoAleatorio(offset);
+            matriz[y][x] = (soma / cont) + deslocamento_aleatorio(offset);
         }
     }
 }
 
 void Mapa::gerar(float rugosidade) {
     srand(time(0));
-    matriz[0][0] = deslocamentoAleatorio(1);
-    matriz[0][tamanho - 1] = deslocamentoAleatorio(1);
-    matriz[tamanho - 1][0] = deslocamentoAleatorio(1);
-    matriz[tamanho - 1][tamanho - 1] = deslocamentoAleatorio(1);
+    matriz[0][0] = deslocamento_aleatorio(1);
+    matriz[0][tamanho - 1] = deslocamento_aleatorio(1);
+    matriz[tamanho - 1][0] = deslocamento_aleatorio(1);
+    matriz[tamanho - 1][tamanho - 1] = deslocamento_aleatorio(1);
 
     int passo = tamanho - 1;
     float offset = 1.0f;
@@ -115,7 +116,7 @@ int Mapa::colunas() const {
     return tamanho;
 }
 
-void Mapa::salvarEmArquivo(const std::string& nome) const {
+void Mapa::salvar_em_arquivo(const std::string& nome) const {
     std::ofstream arquivo(nome);
     arquivo << tamanho << "\n";
     for (int i = 0; i < tamanho; ++i) {
@@ -127,16 +128,16 @@ void Mapa::salvarEmArquivo(const std::string& nome) const {
     arquivo.close();
 }
 
-void Mapa::lerDeArquivo(const std::string& nome) {
+void Mapa::ler_de_arquivo(const std::string& nome) {
     std::ifstream arquivo(nome);
     if (!arquivo.is_open()) return;
 
     int novoTamanho;
     arquivo >> novoTamanho;
 
-    desalocarMatriz();
+    desalocar_matriz();
     tamanho = novoTamanho;
-    inicializarMatriz();
+    inicializar_matriz();
 
     for (int i = 0; i < tamanho; ++i) {
         for (int j = 0; j < tamanho; ++j) {
@@ -155,22 +156,24 @@ void Mapa::imprimir() const {
     }
 }
 
-/*int main () {
+void Mapa::paint(Paleta palet){
+    Imagem image (tamanho, tamanho);
+    Paleta* minhaPaleta;
 
-Mapa mapa(3); // 9x9
-    mapa.gerar(2.0f);
+    palet.ler_arquivo("paleta.cor", minhaPaleta);
 
-    std::cout << "Mapa gerado:\n";
-    mapa.imprimir();
+    for (int i = 0; i < tamanho; i++)
+    {
+        for (int j = 0; j < tamanho; j++)
+        {
+        Cor color;
 
-    mapa.salvarEmArquivo("altitudes.txt");
+        color = palet.consultar_cor(matriz[i][j]);
 
-    Mapa outroMapa(0);
-    outroMapa.lerDeArquivo("altitudes.txt");
+        image.change_pixel(i, j, color);
+        }
+    }
 
-    std::cout << "\nMapa lido do arquivo:\n";
-    outroMapa.imprimir();
+    image.save_Image("imagem.ppm");
 
-
-    return 0;
-}*/
+}
