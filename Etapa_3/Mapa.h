@@ -1,18 +1,19 @@
 #ifndef __Mapa
 #define __Mapa
 #include <string>
+#include "../Etapa_2/imagem.h"
 
 class Mapa {
 private:
     int tamanho;
     float** matriz;
 
-    float deslocamentoAleatorio(float offset);
+    float deslocamento_aleatorio(float offset);
     void diamond(int passo, float offset);
     void square(int passo, float offset);
     
-    void inicializarMatriz();
-    void desalocarMatriz();
+    void inicializar_matriz();
+    void desalocar_matriz();
 
 public:
     Mapa(int N);
@@ -23,9 +24,11 @@ public:
     int linhas() const;
     int colunas() const;
 
-    void salvarEmArquivo(const std::string& nome) const;
-    void lerDeArquivo(const std::string& nome);
+    void salvar_em_arquivo(const std::string& nome) const;
+    void ler_de_arquivo(const std::string& nome);
     void imprimir() const;
+
+    void paint(Paleta paleta);
 };
 
 #endif
