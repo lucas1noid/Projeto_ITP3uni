@@ -7,12 +7,13 @@
 #include <ctime>
 #include <cmath>
 #include <iomanip>
-//construtor
+#include <algorithm> // necessário para std::clamp
+
 Mapa::Mapa(int N) {
     tamanho = pow(2, N) + 1;
     inicializar_matriz();
 }
-//destrutor
+
 Mapa::~Mapa() {
     desalocar_matriz();
 }
@@ -26,7 +27,7 @@ void Mapa::inicializar_matriz() {
     for (int i = 0; i < tamanho; ++i) {
         matriz[i] = new float[tamanho];
         for (int j = 0; j < tamanho; ++j) {
-            matriz[i][j] = 0.0f;
+            matriz[i][j] = 1.0f; // valor central dentro da faixa 0–2.0
         }
     }
 }
@@ -48,7 +49,8 @@ void Mapa::diamond(int passo, float offset) {
                 matriz[y + metade][x - metade] +
                 matriz[y + metade][x + metade]
             ) / 4.0f;
-            matriz[y][x] = media + deslocamento_aleatorio(offset);
+            float suavizacao = offset * (float(metade) / tamanho);
+            matriz[y][x] = std::clamp(media + deslocamento_aleatorio(suavizacao), 0.0f, 2.0f);
         }
     }
 }
@@ -77,20 +79,21 @@ void Mapa::square(int passo, float offset) {
                 cont++;
             }
 
-            matriz[y][x] = (soma / cont) + deslocamento_aleatorio(offset);
+            float suavizacao = offset * (float(metade) / tamanho);
+            matriz[y][x] = std::clamp((soma / cont) + deslocamento_aleatorio(suavizacao), 0.0f, 2.0f);
         }
     }
 }
 
 void Mapa::gerar(float rugosidade) {
     srand(time(0));
-    matriz[0][0] = deslocamento_aleatorio(1);
-    matriz[0][tamanho - 1] = deslocamento_aleatorio(1);
-    matriz[tamanho - 1][0] = deslocamento_aleatorio(1);
-    matriz[tamanho - 1][tamanho - 1] = deslocamento_aleatorio(1);
+    matriz[0][0] = 1.0f;
+    matriz[0][tamanho - 1] = 1.0f;
+    matriz[tamanho - 1][0] = 1.0f;
+    matriz[tamanho - 1][tamanho - 1] = 1.0f;
 
     int passo = tamanho - 1;
-    float offset = 1.0f;
+    float offset = 0.5f; // ajustado para limitar dentro de 0–2.0
 
     while (passo > 1) {
         diamond(passo, offset);
@@ -104,7 +107,6 @@ float Mapa::consultar(int lin, int col) const {
     if (lin >= 0 && lin < tamanho && col >= 0 && col < tamanho) {
         return matriz[lin][col];
     }
-    //caso pontos inválidos
     return -1.0f;
 }
 
@@ -156,24 +158,17 @@ void Mapa::imprimir() const {
     }
 }
 
-void Mapa::paint(Paleta palet){
+void Mapa::paint(Paleta& palet){
     Imagem image (tamanho, tamanho);
-    Paleta* minhaPaleta;
-
-    palet.ler_arquivo("paleta.cor", minhaPaleta);
 
     for (int i = 0; i < tamanho; i++)
     {
         for (int j = 0; j < tamanho; j++)
         {
-        Cor color;
-
-        color = palet.consultar_cor(matriz[i][j]);
-
-        image.change_pixel(i, j, color);
+            Cor color = palet.consultar_cor(matriz[i][j]);
+            image.change_pixel(j, i, color); // x = col = j, y = lin = i
         }
     }
 
     image.save_Image("imagem.ppm");
-
 }
