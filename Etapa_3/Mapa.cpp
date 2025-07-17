@@ -1,4 +1,3 @@
-// MapaAltitudes.cpp
 #include "Mapa.h"
 #include "../Etapa_1/paleta.h"
 #include <iostream>
@@ -167,8 +166,29 @@ void Mapa::paint(Paleta& palet){
         {
             Cor color = palet.consultar_cor(matriz[i][j]);
             image.change_pixel(j, i, color); // x = col = j, y = lin = i
+        
         }
+        
     }
+    
+    sombreador(image);
 
     image.save_Image("imagem.ppm");
+}
+
+void Mapa::sombreador(Imagem& image) {
+    for (int i = 1; i < tamanho; ++i) {
+        for (int j = 1; j < tamanho; ++j) {
+            float alturaAtual = matriz[i][j];
+            float alturaNoroeste = matriz[i - 1][j - 1];
+
+            if (alturaNoroeste > alturaAtual) {
+                Cor pixel = image.get_pixel(j, i);  // x = col = j, y = lin = i
+                pixel.R = std::max(0, (int)(pixel.R / 1.25));
+                pixel.G = std::max(0, (int)(pixel.G / 1.25));
+                pixel.B = std::max(0, (int)(pixel.B / 1.25));
+                image.change_pixel(j, i, pixel);
+            }
+        }
+    }
 }
