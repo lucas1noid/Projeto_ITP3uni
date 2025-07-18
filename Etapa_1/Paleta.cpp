@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "paleta.h"
+#include "Paleta.h"
 using namespace std;
 
 //
