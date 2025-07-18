@@ -13,7 +13,7 @@ using namespace std;
         alturas[1]=10;
     }    
     //transforma os dados privados da paleta
-    void Paleta::get_paleta (int qtd, Cor a[], double valores[]){
+    void Paleta::pegar_paleta (int qtd, Cor a[], double valores[]){
         quantidade = qtd;
         for (int i = 0; i < qtd; i++)
         {
@@ -52,7 +52,7 @@ using namespace std;
             cores[i] = { R, G, B };
         }
         
-        paleta -> get_paleta(qtd, cores, valores);
+        paleta -> pegar_paleta(qtd, cores, valores);
 
         arquivo.close();
         return 1;
