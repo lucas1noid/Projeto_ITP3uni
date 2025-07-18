@@ -30,15 +30,18 @@ public:
     Paleta();
     
     /**
-    
+     * atribui valores inicializados aos valores privados, para que possamos usar em outras funções
+    @param quantidade de alturas que vao ser utilizadas para separar as cores; Array de cores, que vão comparando cada altura a essa cor; valores, se relacionam com as cores, formando a paleta
+    @return nenhum
     */
-    void get_paleta(int qtd, Cor a[], double valores[]);
+    void pegar_paleta(int qtd, Cor a[], double valores[]);
     
     /**
-    
-    
+    Ler Arquivo, pega um arquivo já existente e passa os dados contidos nele para os dados privados da paleta.
+    @param nome do arquivo desejado
+    @return "1" para caso a leitura do arquivo for concluída, ou "0" caso contrário.
     */
-    int ler_arquivo(const char* nome_arquivo, Paleta *paleta);
+    int ler_arquivo(const char* nome_arquivo, Paleta* paleta);
     
     /**
     Consulta a cor que é correspondente à altura recebida.
