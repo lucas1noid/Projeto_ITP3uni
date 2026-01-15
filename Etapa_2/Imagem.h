@@ -1,6 +1,6 @@
 #ifndef _Imagem
 #define _Imagem
-#include "../Etapa_1/paleta.h"
+#include "../Etapa_1/Paleta.h"
 
 
 class Imagem
@@ -35,7 +35,7 @@ public:
     @param linha que se encontra o pixel, coluna onde se encontra o pixel
     @return um pixel Tipo Cor
     */
-    Cor get_pixel(int linha, int coluna);
+    Cor get_pixel(int linha, int coluna) const;
     
     /**
     mudar apenas 1 pixel na imagem

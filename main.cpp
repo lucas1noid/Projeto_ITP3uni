@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Etapa_1/paleta.h"
+#include "Etapa_1/Paleta.h"
 #include "Etapa_2/Imagem.h"
 #include "Etapa_3/Mapa.h"
 using namespace std;
@@ -19,7 +19,7 @@ Paleta paleta;
     mapa.salvar_em_arquivo("alturas");
     mapa.imprimir();
 
-    mapa.paint(paleta);
+    mapa.pintar(paleta);
 
 return 0;
 }

@@ -1,5 +1,5 @@
     #include <iostream>
-    #include "../Etapa_1/paleta.h"
+    #include "../Etapa_1/Paleta.h"
     #include "Imagem.h"
     #include <fstream>
     using namespace std;
@@ -25,7 +25,7 @@
             delete[] pixel;
         }
 
-    void Imagem::salvar_Imagem(string nomeArquivo) {
+    void Imagem::save_Image(string nomeArquivo) {
         ofstream arquivo(nomeArquivo);
 
         if (!arquivo) {
@@ -52,9 +52,9 @@
         std::cout << "Arquivo " << nomeArquivo << " salvo com sucesso.\n";
         }
 
-    Cor Imagem::consultar_pixel(int linha, int coluna) const{
+    Cor Imagem::get_pixel(int linha, int coluna) const{
         return pixel[linha][coluna];
         };
-    void Imagem::mudar_pixel(int linha, int coluna, Cor cor){
+    void Imagem::change_pixel(int linha, int coluna, Cor cor){
         pixel[linha][coluna] = cor;
         };

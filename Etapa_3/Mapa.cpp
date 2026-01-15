@@ -1,5 +1,5 @@
 #include "Mapa.h"
-#include "../Etapa_1/paleta.h"
+#include "../Etapa_1/Paleta.h"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -165,7 +165,7 @@ void Mapa::pintar(Paleta& palet){
         for (int j = 0; j < tamanho; j++)
         {
             Cor color = palet.consultar_cor(matriz[i][j]);
-            image.mudar_pixel(j, i, color); // x = col = j, y = lin = i
+            image.change_pixel(j, i, color); // x = col = j, y = lin = i
         
         }
         
@@ -173,7 +173,7 @@ void Mapa::pintar(Paleta& palet){
     
     sombreador(image);
 
-    image.salvar_Imagem("imagem.ppm");
+    image.save_Image("imagem.ppm");
 }
 
 void Mapa::sombreador(Imagem& image) {
@@ -183,11 +183,11 @@ void Mapa::sombreador(Imagem& image) {
             float alturaNoroeste = matriz[i - 1][j - 1];
 
             if (alturaNoroeste > alturaAtual) {
-                Cor pixel = image.consultar_pixel(j, i);  // x = col = j, y = lin = i
+                Cor pixel = image.get_pixel(j, i);  // x = col = j, y = lin = i
                 pixel.R = std::max(0, (int)(pixel.R / 1.25));
                 pixel.G = std::max(0, (int)(pixel.G / 1.25));
                 pixel.B = std::max(0, (int)(pixel.B / 1.25));
-                image.mudar_pixel(j, i, pixel);
+                image.change_pixel(j, i, pixel);
             }
         }
     }

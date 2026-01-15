@@ -1,7 +1,7 @@
 #ifndef __Mapa
 #define __Mapa
 #include <string>
-#include "../Etapa_2/imagem.h"
+#include "../Etapa_2/Imagem.h"
 
 class Mapa {
 private:
