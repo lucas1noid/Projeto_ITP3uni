@@ -1,5 +1,5 @@
 # MAP_generator 🌍
-`![Mapa teste gerado pelo programa](imagem_teste.png)`
+![Mapa teste gerado pelo programa](imagem_teste.png)
 
 > Projeto desenvolvido para a disciplina de Introdução às Técnicas de Programação (ITP) pela **UFRN**.
 
